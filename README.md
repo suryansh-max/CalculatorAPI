@@ -5,7 +5,6 @@ This is a simple, extensible calculator REST API built using Spring Boot. It was
 ---
 
 ## 🚀 Features
-
 - RESTful API for performing basic arithmetic operations
 - Enum-based operation handling (`ADD`, `SUBTRACT`, `MULTIPLY`, `DIVIDE`)
 - Case-insensitive operation input (e.g., `"add"`, `"Add"`, `"ADD"` are all valid)
@@ -24,7 +23,6 @@ This is a simple, extensible calculator REST API built using Spring Boot. It was
 
 ---
 
-
 ## 📨 API Usage
 
 ### Endpoint
@@ -32,20 +30,20 @@ This is a simple, extensible calculator REST API built using Spring Boot. It was
 POST http://localhost:8080/api/calculator/calculate
 POST http://localhost:8080/api/calculator/calculate-chained
 
-bash
-Copy
-Edit
+
+
 
 ### Request Body
 
-```json
+**Normal operations**
+
 {
   "operation": "add",   // or "ADD", "Add"
   "number1": 10,
   "number2": 5
 }
 
------- or ------
+**Chained Operations:**
 
 {
   "initialValue": 5,
@@ -75,41 +73,45 @@ Supported Operations
 
 ---
 
-
-Response
+**Response**
 Numeric
 
 ---
 
-Architecture:
+### Architecture:
+![Image](https://github.com/user-attachments/assets/f934d398-2a93-486e-97d6-1534020a601b)
 
 
 
-❗ Error Handling
-Division by zero returns 400 Bad Request
+### ❗ Error Handling
+![Image](https://github.com/user-attachments/assets/52b4f278-b64c-4973-ac8f-6dbf7783b298)
 
-Unsupported operations return 400 Bad Request
+
+- Division by zero returns 400 Bad Request
+
+- Unsupported operations return 400 Bad Request
 
 ▶️ Running the Application
-Prerequisites
-Java 17
-Maven
 
-# Clone the repo
-git clone https://github.com/suryansh-max/CalculatorAPI/
-cd calculator
+**Prerequisites**
+- Java 17
+- Maven
 
-# Build the project
-mvn clean install
+		# Clone the repo
+		git clone https://github.com/suryansh-max/CalculatorAPI/
+		cd calculator
 
-# Run the app
-mvn spring-boot:run
+		# Build the project
+		mvn clean install
 
-🧪 Testing
+		# Run the app
+		mvn spring-boot:run
+---
+## 🧪 Testing
 Run tests using:
 mvn test
 
-✍️ Author
+## ✍️ Author
 Suryansh Patel
 
 
