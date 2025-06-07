@@ -27,45 +27,45 @@ This is a simple, extensible calculator REST API built using Spring Boot. It was
 
 ### Endpoint
 
-POST http://localhost:8080/api/calculator/calculate
-POST http://localhost:8080/api/calculator/calculate-chained
+- POST http://localhost:8080/api/calculator/calculate
+- POST http://localhost:8080/api/calculator/calculate-chained
 
 
 
 
 ### Request Body
 
-**Normal operations**
+**Normal operations:**
 
-{
-  "operation": "add",   // or "ADD", "Add"
-  "number1": 10,
-  "number2": 5
-}
+	{
+	  "operation": "add",   // or "ADD", "Add"
+	  "number1": 10,
+	  "number2": 5
+	}
 
 **Chained Operations:**
 
-{
-  "initialValue": 5,
-  "steps": [
-    {
-      "operation": "ADD",
-      "value": 3
-    },
-    {
-      "operation": "MULTIPLY",
-      "value": 2
-    },
-    {
-      "operation": "SUBTRACT",
-      "value": 4
-    }
-  ]
-}
+	{
+	  "initialValue": 5,
+	  "steps": [
+		{
+		  "operation": "ADD",
+		  "value": 3
+		},
+		{
+		  "operation": "MULTIPLY",
+		  "value": 2
+		},
+		{
+		  "operation": "SUBTRACT",
+		  "value": 4
+		}
+	  ]
+	}
 
 ---
 
-Supported Operations
+**Supported Operations**
 - add
 - subtract
 - multiply
@@ -78,7 +78,7 @@ Numeric
 
 ---
 
-### Architecture:
+### 🔄 Architecture:
 ![Image](https://github.com/user-attachments/assets/f934d398-2a93-486e-97d6-1534020a601b)
 
 
