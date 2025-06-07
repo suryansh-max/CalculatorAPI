@@ -1,0 +1,206 @@
+# 🧮 Calculator API - Spring Boot Application
+
+This is a simple, extensible calculator REST API built using Spring Boot. It was developed as part of an assignment to demonstrate clean code practices, use of enums, validation, and a layered architecture.
+
+---
+
+## 🚀 Features
+
+- RESTful API for performing basic arithmetic operations
+- Enum-based operation handling (`ADD`, `SUBTRACT`, `MULTIPLY`, `DIVIDE`)
+- Case-insensitive operation input (e.g., `"add"`, `"Add"`, `"ADD"` are all valid)
+- Input validation with `@Valid`
+- Clear separation between controller, service, and model layers
+
+---
+
+## 🛠 Technologies Used
+
+- Java 17
+- Spring Boot 3.x
+- Maven
+- Lombok (for boilerplate reduction)
+- Jackson (for JSON parsing)
+
+---
+
+## 📦 Project Structure
+
+calculator/
+├── controller/
+│ └── CalculatorController.java
+├── service/
+│ └── CalculatorService.java
+├── model/
+│ ├── CalculationRequest.java
+│ └── Operation.java
+├── CalculatorApplication.java
+└── resources/
+└── application.properties
+
+yaml
+Copy
+Edit
+
+---
+
+🔄 Flow Diagram
+text
+Copy
+Edit
+[ CLIENT (Postman, UI, etc.) ]
+            |
+            | HTTP POST
+            v
+--------------------------------------
+|  CalculatorController (REST API)   |
+|------------------------------------|
+| - @PostMapping("/calculate")       |
+| - @PostMapping("/calculate-chained")|
+--------------------------------------
+            |
+      Validates @RequestBody
+            |
+----------------------------------------------
+|           |                    |            |
+v           v                    v            v
+Valid Input  Invalid Input JSON  Missing / Invalid Field
+|           |                    |
+v           v                    v
+CalculatorService  HttpMessageNotReadable  MethodArgumentNotValid
+ Business Logic     Exception thrown         Exception thrown
+            |                               |
+            v                               |
+OperationHandler executes                    |
+            |                               |
+            v                               |
+     Returns Result                         |
+            |                               |
+            v                               |
+     HTTP 200 OK <--------------------------
+            |
+            v
+       JSON Response
+
+[ EXCEPTION HANDLING (ControllerAdvice) ]
+text
+Copy
+Edit
+---------------------------------------------------------
+|                      GlobalExceptionHandler            |
+---------------------------------------------------------
+| @ExceptionHandler(MethodArgumentNotValidException)     |
+| --> Handles validation failures (e.g. missing fields)  |
+---------------------------------------------------------
+| @ExceptionHandler(HttpMessageNotReadableException)     |
+| --> Handles malformed JSON or type mismatch            |
+---------------------------------------------------------
+| @ExceptionHandler(ArithmeticException)                 |
+| --> Handles / by zero, etc.                             |
+---------------------------------------------------------
+| @ExceptionHandler(Exception)                            |
+| --> Generic fallback                                    |
+---------------------------------------------------------
+
+Each handler builds a structured error response with:
+  - timestamp
+  - status
+  - error message
+  - detailed field messages (if applicable)
+  - HTTP 400 / 500 accordingly
+
+
+## 📨 API Usage
+
+### Endpoint
+
+POST http://localhost:8080/api/calculator/calculate
+POST http://localhost:8080/api/calculator/calculate-chained
+
+bash
+Copy
+Edit
+
+### Request Body
+
+```json
+{
+  "operation": "add",   // or "ADD", "Add"
+  "number1": 10,
+  "number2": 5
+}
+
+or
+
+{
+  "initialValue": 5,
+  "steps": [
+    {
+      "operation": "ADD",
+      "value": 3
+    },
+    {
+      "operation": "MULTIPLY",
+      "value": 2
+    },
+    {
+      "operation": "SUBTRACT",
+      "value": 4
+    }
+  ]
+}
+
+
+Supported Operations
+add
+
+subtract
+
+multiply
+
+divide
+
+Response
+json
+Copy
+Edit
+15.0
+❗ Error Handling
+Division by zero returns 400 Bad Request
+
+Unsupported operations return 400 Bad Request
+
+▶️ Running the Application
+Prerequisites
+Java 17
+
+Maven
+
+Commands
+bash
+Copy
+Edit
+# Clone the repo
+git clone https://github.com/your-username/calculator.git
+cd calculator
+
+# Build the project
+mvn clean install
+
+# Run the app
+mvn spring-boot:run
+🧪 Testing
+Run tests using:
+
+bash
+Copy
+Edit
+mvn test
+📄 License
+This project is for educational/demo purposes and is not intended for production use.
+
+✍️ Author
+Suryansh Patel
+📧 suryaloveit@gmail.com
+📍 Kansas City, MO
+
